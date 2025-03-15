@@ -86,14 +86,13 @@ elif choice == "Search Book":
             st.warning("No books found with that title or author.")
 
 # View All Books
-elif choice == "View All Books":
+if choice == "View All Books":
     st.header("📚 Your Library")
     books = get_books()
-    
+
     if books:
-        for book in books:
-            st.markdown(f"**{book[0]}** by {book[1]} ({book[2]}) - {book[3]} - {'Read' if book[4] else 'Unread'} - ⭐ {book[5]}/5")
-            st.text(f"Summary: {book[6]}")
+        df = pd.DataFrame(books, columns=["Title", "Author", "Year", "Genre", "Read", "Rating", "Summary"])
+        st.dataframe(df)  # Display table
     else:
         st.info("Your library is empty. Add some books!")
 
